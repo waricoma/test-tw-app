@@ -1,0 +1,50 @@
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+    <script>
+      // Initialize Firebase
+      const config = {
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: ""
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <style>
+        #loginBtn {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<span id="loginBtn">Login</span>
+
+<script>
+  const provider = new firebase.auth.TwitterAuthProvider();
+
+  $('#loginBtn').click(() => {
+    console.log(100);
+    firebase.auth().signInWithRedirect(provider);
+  });
+
+  firebase.auth().getRedirectResult().then(result => {
+    if (!result.credential) {
+      $('#loginBtn').show();
+      return true;
+    }
+  }).catch(error => {
+  });
+
+</script>
+
+</body>
